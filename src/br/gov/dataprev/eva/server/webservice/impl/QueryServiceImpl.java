@@ -40,8 +40,13 @@ public class QueryServiceImpl implements QueryService {
 			String output;
 			System.out.println("Output from Server .... \n");
 			while ((output = br.readLine()) != null) {
-				System.out.println(output);
-				retVal = output;
+				output = output.replace("\"", "").trim();
+				String chave = output.split(":")[0]; 
+				if(chave.contains("title")){
+					
+					retVal = output.substring(chave.length()+2, output.length()-2);
+					break;
+				}
 			}
 
 			conn.disconnect();

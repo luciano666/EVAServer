@@ -12,7 +12,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import br.gov.dataprev.eva.server.dao.AlertaDAO;
 import br.gov.dataprev.eva.server.entity.TipoRetorno;
+import br.gov.dataprev.eva.server.to.AlertaTO;
 import br.gov.dataprev.eva.server.util.PrologAdapter;
 import br.gov.dataprev.eva.server.webservice.QueryService;
 import jpl.JPL;
@@ -20,10 +22,12 @@ import jpl.Query;
 
 public class QueryServiceImpl implements QueryService {
 
+	private static AlertaDAO alertaDAO = new AlertaDAO();
+	
 	@GET
 	@Produces("application/json")
 	@Path(value = "/processarConsulta/{servico}/{consulta}")
-	public String processarConsulta(@PathParam("consulta") String consulta, @PathParam("servico") String servico) {
+	public String processarConsulta(@PathParam("servico") String servico, @PathParam("consulta") String consulta) {
 
 		String retVal = "";
 		try {
@@ -59,8 +63,12 @@ public class QueryServiceImpl implements QueryService {
 
 				conn.disconnect();
 			} else if (tipo == TipoRetorno.ALERTA) {
-				
-				
+				AlertaTO alerta = alertaDAO.verificarAlertaServico(servico);
+				if(alerta == null){
+					retVal = "Não encontrei em meus registros nenhum alerta";
+				} else {
+					retVal = alerta.getDescricao();
+				}
 			}
 
 		} catch (MalformedURLException e) {

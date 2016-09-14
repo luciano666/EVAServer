@@ -12,44 +12,56 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import br.gov.dataprev.eva.server.entity.TipoRetorno;
+import br.gov.dataprev.eva.server.util.PrologAdapter;
 import br.gov.dataprev.eva.server.webservice.QueryService;
+import jpl.JPL;
+import jpl.Query;
 
 public class QueryServiceImpl implements QueryService {
 
 	@GET
 	@Produces("application/json")
-	@Path(value = "/processarConsulta/{consulta}")
-	public String processarConsulta(@PathParam("consulta") String consulta) {
+	@Path(value = "/processarConsulta/{servico}/{consulta}")
+	public String processarConsulta(@PathParam("consulta") String consulta, @PathParam("servico") String servico) {
 
 		String retVal = "";
 		try {
 
-			URL url = new URL("http","10.21.23.211", 8983, "/solr/gettingstarted/select?indent=on&wt=json&q=" + consulta);
-//			System.out.println(url.getContent());
-			
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			conn.setRequestProperty("Accept", "application/json");
+			TipoRetorno tipo = PrologAdapter.getInstance().executarAvaliacao(servico, consulta);
 
-			if (conn.getResponseCode() != 200) {
-				throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
-			}
+			if (tipo == TipoRetorno.CONSULTA) {
+				URL url = new URL("http", "10.21.23.211", 8983,
+						"/solr/gettingstarted/select?indent=on&wt=json&q=" + consulta);
+				// System.out.println(url.getContent());
 
-			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setRequestMethod("GET");
+				conn.setRequestProperty("Accept", "application/json");
 
-			String output;
-			System.out.println("Output from Server .... \n");
-			while ((output = br.readLine()) != null) {
-				output = output.replace("\"", "").trim();
-				String chave = output.split(":")[0]; 
-				if(chave.contains("title")){
-					
-					retVal = output.substring(chave.length()+2, output.length()-2);
-					break;
+				if (conn.getResponseCode() != 200) {
+					throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
 				}
-			}
 
-			conn.disconnect();
+				BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+
+				String output;
+				System.out.println("Output from Server .... \n");
+				while ((output = br.readLine()) != null) {
+					output = output.replace("\"", "").trim();
+					String chave = output.split(":")[0];
+					if (chave.contains("title")) {
+
+						retVal = output.substring(chave.length() + 2, output.length() - 2);
+						break;
+					}
+				}
+
+				conn.disconnect();
+			} else if (tipo == TipoRetorno.ALERTA) {
+				
+				
+			}
 
 		} catch (MalformedURLException e) {
 

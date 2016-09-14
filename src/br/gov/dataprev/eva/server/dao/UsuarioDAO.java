@@ -59,7 +59,7 @@ public class UsuarioDAO extends BaseDAO{
 			retVal = new ArrayList<HistoricoTO>();
 			while (rs.next()) {
 				int id = rs.getInt("idUsuario");
-				String mensagem = rs.getString("mensagem");
+				String mensagem = rs.getString("mensagens");
 
 				HistoricoTO hist = new HistoricoTO();
 				hist.setId(id);

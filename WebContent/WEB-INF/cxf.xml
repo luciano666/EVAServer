@@ -32,7 +32,7 @@
 	
 	<bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
 
-	<jaxrs:server id="UsuartioEndpoint" address="/usuarioservices">
+	<jaxrs:server id="UsuarioEndpoint" address="/usuarioservices">
 		<jaxrs:serviceBeans>
 			<ref bean="usuarioServiceBean" />
 		</jaxrs:serviceBeans>

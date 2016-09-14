@@ -30,6 +30,7 @@
 	<bean id="usuarioServiceBean"   class="br.gov.dataprev.eva.server.webservice.impl.UsuarioServiceImpl" />
 	<bean id="queryServiceBean"   class="br.gov.dataprev.eva.server.webservice.impl.QueryServiceImpl" />
 	<bean id="servicoServiceBean" class="br.gov.dataprev.eva.server.webservice.impl.ServicoServiceImpl"/>
+	<bean id="alertaServiceBean" class="br.gov.dataprev.eva.server.webservice.impl.AlertaServiceImpl"/>
 	
 	<bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
 
@@ -69,5 +70,16 @@
 		</jaxrs:features>
 	</jaxrs:server>
 	
+	<jaxrs:server id="AlertaEndpoint" address="/alertaservices">
+		<jaxrs:serviceBeans>
+			<ref bean="alertaServiceBean" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jaxbProvider" />
+		</jaxrs:providers>
+		<jaxrs:features>
+			<cxf:logging />
+		</jaxrs:features>
+	</jaxrs:server>
 	
 </beans>

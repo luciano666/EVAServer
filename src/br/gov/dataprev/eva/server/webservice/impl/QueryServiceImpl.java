@@ -25,7 +25,6 @@ public class QueryServiceImpl implements QueryService {
 		try {
 
 			URL url = new URL("http","10.21.23.211", 8983, "/solr/gettingstarted/select?indent=on&wt=json&q=" + consulta);
-//			System.out.println(url.getContent());
 			
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");

@@ -29,6 +29,7 @@
 	<!-- Início da definição dos serviços JAX-RS (REST) -->
 	<bean id="usuarioServiceBean"   class="br.gov.dataprev.eva.server.webservice.impl.UsuarioServiceImpl" />
 	<bean id="queryServiceBean"   class="br.gov.dataprev.eva.server.webservice.impl.QueryServiceImpl" />
+	<bean id="servicoServiceBean" class="br.gov.dataprev.eva.server.webservice.impl.ServicoServiceImpl"/>
 	
 	<bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
 
@@ -55,4 +56,18 @@
 			<cxf:logging />
 		</jaxrs:features>
 	</jaxrs:server>
+	
+	<jaxrs:server id="ServicoEndpoint" address="/servicoservices">
+		<jaxrs:serviceBeans>
+			<ref bean="servicoServiceBean" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jaxbProvider" />
+		</jaxrs:providers>
+		<jaxrs:features>
+			<cxf:logging />
+		</jaxrs:features>
+	</jaxrs:server>
+	
+	
 </beans>

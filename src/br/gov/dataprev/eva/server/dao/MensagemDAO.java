@@ -14,7 +14,7 @@ public class MensagemDAO extends BaseDAO {
 		PreparedStatement preparedStatement = null;
 		Connection connection = null;
 		try {
-			String sql = "INSERT INTO MENSAGEM (descricao, dataHora, remetente, ticket, tipo) VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO Mensagem(descricao, dataHora, remetente, Solicitacao_ticketID, tipo) VALUES(?,?,?,?,?)";
 			connection = obterConexao();
 			preparedStatement = connection.prepareStatement(sql);
 

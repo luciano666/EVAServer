@@ -24,7 +24,7 @@ public class SolicitacaoDAO extends BaseDAO {
 		PreparedStatement preparedStatement = null;
 		Connection connection = null;
 		try {
-			String sql = "INSERT INTO SOLICITACAO (idServico, idMotivo, idUsuario, dataHoraInicio) VALUES(?,?,?,?)";
+			String sql = "INSERT INTO Solicitacao(Servico_idServico, Servico_Motivo_idMotivo, Usuario_idUsuario, dataHoraInicio) VALUES(?,?,?,?)";
 			connection = obterConexao();
 			preparedStatement = connection.prepareStatement(sql);
 
@@ -35,10 +35,10 @@ public class SolicitacaoDAO extends BaseDAO {
 			preparedStatement.executeUpdate();
 
 			stmt = connection.createStatement();
-			rs = stmt.executeQuery("SELECT idSolicitacao FROM Solicitacao s where s.idUsuario='"
+			rs = stmt.executeQuery("SELECT ticketID FROM Solicitacao s where s.Usuario_idUsuario='"
 					+ solicitacaoTO.getUsuario().getId() + "' order by s.dataHoraInicio DESC");
 			rs.next();
-			solicitacaoTO.setTicket(rs.getInt("idSolicitacao"));
+			solicitacaoTO.setTicket(rs.getInt("ticketID"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -54,11 +54,11 @@ public class SolicitacaoDAO extends BaseDAO {
 		PreparedStatement preparedStatement = null;
 		Connection connection = null;
 		try {
-			String sql = "UPDATE SOLICITACAO s set s.dataHoraFim = ? WHERE s.ticket = ?";
+			String sql = "UPDATE Solicitacao set dataHoraFim = ? WHERE ticketID = ?";
 			connection = obterConexao();
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setTimestamp(1, getCurrentTimeStamp());
-			preparedStatement.setInt(2, solicitacaoTO.getUsuario().getId());
+			preparedStatement.setInt(2, solicitacaoTO.getTicket());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

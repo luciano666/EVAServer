@@ -8,15 +8,18 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import br.gov.dataprev.eva.server.dao.SolicitacaoDAO;
+import br.gov.dataprev.eva.server.dao.UsuarioDAO;
 import br.gov.dataprev.eva.server.to.MensagemTO;
 import br.gov.dataprev.eva.server.to.MotivoTO;
 import br.gov.dataprev.eva.server.to.ServicoTO;
 import br.gov.dataprev.eva.server.to.SolicitacaoTO;
+import br.gov.dataprev.eva.server.to.UsuarioTO;
 import br.gov.dataprev.eva.server.webservice.SolicitacaoService;
 
 public class SolicitacaoServiceImpl implements SolicitacaoService {
 
 	private SolicitacaoDAO solicitacaoDAO = new SolicitacaoDAO();
+	private UsuarioDAO usuarioDAO = new UsuarioDAO();
 
 	@Override
 	@GET
@@ -33,6 +36,8 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
 		SolicitacaoTO solicitacaoTO = new SolicitacaoTO();
 		solicitacaoTO.setServico(servicoTO);
 		solicitacaoTO.setMotivo(motivoTO);
+		solicitacaoTO.setUsuario(usuarioDAO.obterUsuario(email));
+		
 
 		return solicitacaoDAO.incluir(solicitacaoTO).getTicket();
 	}

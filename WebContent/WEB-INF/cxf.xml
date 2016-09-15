@@ -33,6 +33,7 @@
 	<bean id="alertaServiceBean" class="br.gov.dataprev.eva.server.webservice.impl.AlertaServiceImpl"/>
 	<bean id="motivoServiceBean" class="br.gov.dataprev.eva.server.webservice.impl.MotivoServiceImpl"/>
 	<bean id="solicitacaoServiceBean" class="br.gov.dataprev.eva.server.webservice.impl.SolicitacaoServiceImpl"/>
+	<bean id="avaliacaoServiceBean" class="br.gov.dataprev.eva.server.webservice.impl.AvaliacaoServiceImpl"/>
 	
 	<bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
 
@@ -99,6 +100,18 @@
 	<jaxrs:server id="SolicitacaoEndpoint" address="/solicitacaoservices">
 		<jaxrs:serviceBeans>
 			<ref bean="solicitacaoServiceBean" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jaxbProvider" />
+		</jaxrs:providers>
+		<jaxrs:features>
+			<cxf:logging />
+		</jaxrs:features>
+	</jaxrs:server>
+	
+	<jaxrs:server id="AvaliavcaoEndpoint" address="/avaliacaoservices">
+		<jaxrs:serviceBeans>
+			<ref bean="avaliacaoServiceBean" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jaxbProvider" />

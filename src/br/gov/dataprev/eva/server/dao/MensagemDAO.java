@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import br.gov.dataprev.eva.server.to.MensagemTO;
 
@@ -34,5 +33,4 @@ public class MensagemDAO extends BaseDAO {
 		}
 
 	}
-
 }

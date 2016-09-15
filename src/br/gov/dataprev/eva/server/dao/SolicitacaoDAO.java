@@ -38,7 +38,7 @@ public class SolicitacaoDAO extends BaseDAO {
 			rs = stmt.executeQuery("SELECT ticketID FROM Solicitacao s where s.Usuario_idUsuario='"
 					+ solicitacaoTO.getUsuario().getId() + "' order by s.dataHoraInicio DESC");
 			rs.next();
-			solicitacaoTO.setTicket(rs.getInt("idSolicitacao"));
+			solicitacaoTO.setTicket(rs.getInt("ticketID"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

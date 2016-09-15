@@ -2,8 +2,8 @@ package br.gov.dataprev.eva.server.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public abstract class BaseDAO {
@@ -20,7 +20,7 @@ public abstract class BaseDAO {
 	}
 
 	protected Connection obterConexao() {
-		
+
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -49,6 +49,32 @@ public abstract class BaseDAO {
 			e.printStackTrace();
 		}
 
+	}
+	
+	protected void close(Connection conn, Statement stmt, ResultSet rs, PreparedStatement pstmt) {
+		try {
+			if (rs != null) {
+				rs.close();
+			}
+			if (stmt != null) {
+				stmt.close();
+			}
+			
+			if (pstmt != null) {
+				pstmt.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	protected java.sql.Timestamp getCurrentTimeStamp() {
+		java.util.Date today = new java.util.Date();
+		return new java.sql.Timestamp(today.getTime());
 	}
 
 }

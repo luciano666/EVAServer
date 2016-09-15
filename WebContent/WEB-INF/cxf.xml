@@ -32,6 +32,7 @@
 	<bean id="servicoServiceBean" class="br.gov.dataprev.eva.server.webservice.impl.ServicoServiceImpl"/>
 	<bean id="alertaServiceBean" class="br.gov.dataprev.eva.server.webservice.impl.AlertaServiceImpl"/>
 	<bean id="motivoServiceBean" class="br.gov.dataprev.eva.server.webservice.impl.MotivoServiceImpl"/>
+	<bean id="solicitacaoServiceBean" class="br.gov.dataprev.eva.server.webservice.impl.SolicitacaoServiceImpl"/>
 	
 	<bean id="jaxbProvider" class="org.apache.cxf.jaxrs.provider.JAXBElementProvider" />
 
@@ -86,6 +87,18 @@
 	<jaxrs:server id="MotivoEndpoint" address="/motivoservices">
 		<jaxrs:serviceBeans>
 			<ref bean="motivoServiceBean" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jaxbProvider" />
+		</jaxrs:providers>
+		<jaxrs:features>
+			<cxf:logging />
+		</jaxrs:features>
+	</jaxrs:server>
+	
+	<jaxrs:server id="SolicitacaoEndpoint" address="/solicitacaoservices">
+		<jaxrs:serviceBeans>
+			<ref bean="solicitacaoServiceBean" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<ref bean="jaxbProvider" />

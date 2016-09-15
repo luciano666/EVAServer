@@ -24,7 +24,7 @@ public class SolicitacaoDAO extends BaseDAO {
 		PreparedStatement preparedStatement = null;
 		Connection connection = null;
 		try {
-			String sql = "INSERT INTO SOLICITACAO (Servico_idServico, Servico_Motivo_idMotivo, Usuario_idUsuario, dataHoraInicio) VALUES(?,?,?,?)";
+			String sql = "INSERT INTO Solicitacao(Servico_idServico, Servico_Motivo_idMotivo, Usuario_idUsuario, dataHoraInicio) VALUES(?,?,?,?)";
 			connection = obterConexao();
 			preparedStatement = connection.prepareStatement(sql);
 

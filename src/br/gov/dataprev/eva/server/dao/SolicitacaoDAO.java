@@ -58,7 +58,7 @@ public class SolicitacaoDAO extends BaseDAO {
 			connection = obterConexao();
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setTimestamp(1, getCurrentTimeStamp());
-			preparedStatement.setInt(2, solicitacaoTO.getUsuario().getId());
+			preparedStatement.setInt(2, solicitacaoTO.getTicket());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

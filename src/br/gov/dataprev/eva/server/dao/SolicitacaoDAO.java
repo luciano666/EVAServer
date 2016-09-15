@@ -54,7 +54,7 @@ public class SolicitacaoDAO extends BaseDAO {
 		PreparedStatement preparedStatement = null;
 		Connection connection = null;
 		try {
-			String sql = "UPDATE SOLICITACAO s set s.dataHoraFim = ? WHERE s.ticketID = ?";
+			String sql = "UPDATE Solicitacao set dataHoraFim = ? WHERE ticketID = ?";
 			connection = obterConexao();
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setTimestamp(1, getCurrentTimeStamp());

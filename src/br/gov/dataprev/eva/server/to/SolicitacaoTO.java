@@ -1,6 +1,7 @@
 package br.gov.dataprev.eva.server.to;
 
 import java.util.Date;
+import java.util.List;
 
 public class SolicitacaoTO {
 
@@ -15,6 +16,16 @@ public class SolicitacaoTO {
 	private Date dataInicio;
 	
 	private Date dataFim;
+	
+	private List<MensagemTO> mensagens;
+
+	public List<MensagemTO> getMensagens() {
+		return mensagens;
+	}
+
+	public void setMensagens(List<MensagemTO> mensagens) {
+		this.mensagens = mensagens;
+	}
 
 	public int getTicket() {
 		return ticket;

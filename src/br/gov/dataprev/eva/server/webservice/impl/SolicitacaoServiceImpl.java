@@ -1,11 +1,14 @@
 package br.gov.dataprev.eva.server.webservice.impl;
 
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import br.gov.dataprev.eva.server.dao.SolicitacaoDAO;
+import br.gov.dataprev.eva.server.to.MensagemTO;
 import br.gov.dataprev.eva.server.to.MotivoTO;
 import br.gov.dataprev.eva.server.to.ServicoTO;
 import br.gov.dataprev.eva.server.to.SolicitacaoTO;
@@ -42,6 +45,14 @@ public class SolicitacaoServiceImpl implements SolicitacaoService {
 		SolicitacaoTO solicitacaoTO = new SolicitacaoTO();
 		solicitacaoTO.setTicket(ticket);
 		solicitacaoDAO.fechar(solicitacaoTO);
+	}
+	
+	@Override
+	@GET
+	@Path(value = "/obterHistorico/{email}")
+	@Produces({ "application/json" })
+	public List<MensagemTO> obterHistorico(@PathParam("email") String email) {
+		return solicitacaoDAO.obterMensagensSolicitacoes(email);
 	}
 
 

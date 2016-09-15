@@ -5,7 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import br.gov.dataprev.eva.server.to.MensagemTO;
 import br.gov.dataprev.eva.server.to.SolicitacaoTO;
 
 public class SolicitacaoDAO extends BaseDAO {
@@ -61,6 +65,51 @@ public class SolicitacaoDAO extends BaseDAO {
 		} finally {
 			close(connection, stmt, rs, preparedStatement);
 		}
+	}
+
+	public List<MensagemTO> obterMensagensSolicitacoes(String email) {
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		List<MensagemTO> retVal = null;
+		try {
+			stmt = obterConexao().createStatement();
+			rs = stmt.executeQuery(
+					"SELECT * from Mensagem m, Solicitacao s, Usuario u where m.Solicitacao_ticketID = ticketID and s.Usuario_idUsuario = u.idUsuario and u.email= '"
+							+ email + "'");
+
+			retVal = new ArrayList<>();
+
+			while (rs.next()) {
+				int id = rs.getInt("idMensagem");
+				String descricao = rs.getString("descricao");
+				String remetente = rs.getString("remetente");
+				int idSolicitacao = rs.getInt("Solicitacao_ticketID");
+				Date data = new Date(rs.getTimestamp("dataHora").getTime());
+
+				MensagemTO mensagem = new MensagemTO();
+				mensagem.setIdMensagem(id);
+				mensagem.setDescricao(descricao);
+				mensagem.setRemetente(remetente);
+				mensagem.setDataHora(data);
+
+				SolicitacaoTO solicitacaoTO = new SolicitacaoTO();
+				solicitacaoTO.setTicket(idSolicitacao);
+				mensagem.setSolicitacao(solicitacaoTO);
+
+				retVal.add(mensagem);
+			}
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, stmt, rs); // end finally try
+
+		}
+
+		return retVal;
+
 	}
 
 }

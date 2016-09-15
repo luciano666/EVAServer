@@ -13,19 +13,25 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import br.gov.dataprev.eva.server.dao.AlertaDAO;
+import br.gov.dataprev.eva.server.dao.MensagemDAO;
 import br.gov.dataprev.eva.server.entity.TipoRetorno;
 import br.gov.dataprev.eva.server.to.AlertaTO;
+import br.gov.dataprev.eva.server.to.MensagemTO;
+import br.gov.dataprev.eva.server.to.SolicitacaoTO;
 import br.gov.dataprev.eva.server.util.PrologAdapter;
 import br.gov.dataprev.eva.server.webservice.QueryService;
 
 public class QueryServiceImpl implements QueryService {
 
 	private static AlertaDAO alertaDAO = new AlertaDAO();
-	
+
+	private static MensagemDAO mensagemDAO = new MensagemDAO();
+
 	@GET
 	@Produces("application/json")
-	@Path(value = "/processarConsulta/{servico}/{consulta}")
-	public String processarConsulta(@PathParam("servico") String servico, @PathParam("consulta") String consulta) {
+	@Path(value = "/processarConsulta/{servico}/{email}/{ticket}/{consulta}")
+	public String processarConsulta(@PathParam("servico") String servico, @PathParam("email") String email,
+			@PathParam("ticket") int ticket, @PathParam("consulta") String consulta) {
 
 		String retVal = "";
 		try {
@@ -62,12 +68,15 @@ public class QueryServiceImpl implements QueryService {
 				conn.disconnect();
 			} else if (tipo == TipoRetorno.ALERTA) {
 				AlertaTO alerta = alertaDAO.verificarAlertaServico(servico);
-				if(alerta == null){
+				if (alerta == null) {
 					retVal = "Não encontrei em meus registros nenhum alerta";
 				} else {
 					retVal = alerta.getDescricao();
 				}
+
 			}
+			mensagemDAO.incluir(buildMensagem(consulta, email, tipo, ticket));
+			mensagemDAO.incluir(buildMensagem(retVal, "EVA", tipo, ticket));
 
 		} catch (MalformedURLException e) {
 
@@ -79,6 +88,18 @@ public class QueryServiceImpl implements QueryService {
 
 		}
 		return retVal;
+	}
+
+	private MensagemTO buildMensagem(String consulta, String email, TipoRetorno tipo, int ticket) {
+
+		MensagemTO mensagemTO = new MensagemTO();
+		mensagemTO.setDescricao(consulta);
+		mensagemTO.setRemetente(email);
+		mensagemTO.setTipo(tipo);
+		SolicitacaoTO solicitacaoTO = new SolicitacaoTO();
+		solicitacaoTO.setTicket(ticket);
+		mensagemTO.setSolicitacao(solicitacaoTO);
+		return mensagemTO;
 	}
 
 }

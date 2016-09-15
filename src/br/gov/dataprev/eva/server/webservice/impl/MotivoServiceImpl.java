@@ -18,7 +18,7 @@ public class MotivoServiceImpl implements MotivoService {
 	@GET
 	@Path(value = "/obterMotivosServico/{idServico}")
 	@Produces({ "application/json" })
-	public List<MotivoTO> obterMotivosServico(@PathParam("idServico") String idServico) {
+	public List<MotivoTO> obterMotivosServico(@PathParam("idServico") int idServico) {
 		return dao.obterMotivosServico(idServico);
 	}
 	

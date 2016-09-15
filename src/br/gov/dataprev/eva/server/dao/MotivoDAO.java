@@ -15,7 +15,7 @@ public class MotivoDAO extends BaseDAO {
 		super();
 	}
 
-	public List<MotivoTO> obterMotivosServico(String servicoParam) {
+	public List<MotivoTO> obterMotivosServico(int servicoParam) {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -24,13 +24,12 @@ public class MotivoDAO extends BaseDAO {
 			stmt = obterConexao().createStatement();
 			rs = stmt.executeQuery("SELECT idMotivo, descricao, Servico_idServico, Servico_Cliente_idCliente"
 					+ " FROM Motivo m where m.Servico_idServico='" + servicoParam +"'");
+			retVal = new ArrayList<MotivoTO>();
 			while (rs.next()) {
 				int idMotivo = rs.getInt("idMotivo");
 				String descricao = rs.getString("descricao");
 				int idServico = rs.getInt("Servico_idServico");
 				int idCliente = rs.getInt("Servico_Cliente_idCliente");
-				
-				retVal = new ArrayList<MotivoTO>();
 				
 				MotivoTO motivo = new MotivoTO();
 				motivo.setIdMotivo(idMotivo);

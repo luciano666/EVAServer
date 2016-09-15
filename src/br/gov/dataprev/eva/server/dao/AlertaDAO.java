@@ -12,14 +12,14 @@ public class AlertaDAO extends BaseDAO {
 		super();
 	}
 
-	public AlertaTO verificarAlertaServico(String servicoParam) {
+	public AlertaTO verificarAlertaServico(int servicoParam) {
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		AlertaTO retVal = null;
 		try {
 			stmt = obterConexao().createStatement();
-			rs = stmt.executeQuery("SELECT idAlerta, descricao, Servico_idServico, nivel FROM Alerta a where a.Servico_idServico='" + servicoParam +"'");
+			rs = stmt.executeQuery("SELECT idAlerta, descricao, Servico_idServico, nivel FROM Alerta a where a.nivel = 0 and a.Servico_idServico='" + servicoParam +"'");
 			while (rs.next()) {
 				int idAlerta = rs.getInt("idAlerta");
 				String descricao = rs.getString("descricao");

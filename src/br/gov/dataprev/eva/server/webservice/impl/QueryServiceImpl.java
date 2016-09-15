@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,9 +15,13 @@ import javax.ws.rs.Produces;
 
 import br.gov.dataprev.eva.server.dao.AlertaDAO;
 import br.gov.dataprev.eva.server.dao.MensagemDAO;
+import br.gov.dataprev.eva.server.dao.MotivoDAO;
+import br.gov.dataprev.eva.server.dao.ServicoDAO;
 import br.gov.dataprev.eva.server.entity.TipoRetorno;
 import br.gov.dataprev.eva.server.to.AlertaTO;
 import br.gov.dataprev.eva.server.to.MensagemTO;
+import br.gov.dataprev.eva.server.to.MotivoTO;
+import br.gov.dataprev.eva.server.to.ServicoTO;
 import br.gov.dataprev.eva.server.to.SolicitacaoTO;
 import br.gov.dataprev.eva.server.util.PrologAdapter;
 import br.gov.dataprev.eva.server.webservice.QueryService;
@@ -26,6 +31,10 @@ public class QueryServiceImpl implements QueryService {
 	private static AlertaDAO alertaDAO = new AlertaDAO();
 
 	private static MensagemDAO mensagemDAO = new MensagemDAO();
+
+	private static ServicoDAO servicoDAO = new ServicoDAO();
+	
+	private static MotivoDAO motivoDAO = new MotivoDAO();
 
 	@GET
 	@Produces("application/json")
@@ -67,11 +76,21 @@ public class QueryServiceImpl implements QueryService {
 
 				conn.disconnect();
 			} else if (tipo == TipoRetorno.ALERTA) {
-				AlertaTO alerta = alertaDAO.verificarAlertaServico(servico);
-				if (alerta == null) {
-					retVal = "Não encontrei em meus registros nenhum alerta";
+				ServicoTO servicoTO = servicoDAO.obterServicoPeloNome(servico);
+				if (servicoTO != null) {
+					AlertaTO alerta = alertaDAO.verificarAlertaServico(servicoTO.getIdServico());
+					if (alerta == null) {
+						retVal = "Não encontrei em meus registros nenhum alerta. <br> Você selecionou o serviço "+servico+", qual o motivo deste atendimento? <br>";
+						List<MotivoTO> motivos = motivoDAO.obterMotivosServico(servicoTO.getIdServico());
+						for (MotivoTO motivo : motivos) {
+							retVal+=motivo.getDescricao()+", ";
+						}
+						retVal = retVal.trim().substring(0,retVal.length()-2);
+					} else {
+						retVal = alerta.getDescricao();
+					}
 				} else {
-					retVal = alerta.getDescricao();
+					retVal = "Não encontrei em meus registros o serviço citado ("+servico+")";
 				}
 
 			}

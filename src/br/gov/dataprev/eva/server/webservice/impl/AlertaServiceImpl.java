@@ -16,7 +16,7 @@ public class AlertaServiceImpl implements AlertaService {
 	@GET
 	@Path(value = "/alerta/{idServico}")
 	@Produces("application/json")
-	public AlertaTO verificarAlertaServico(@PathParam("idServico") String idServico) {
+	public AlertaTO verificarAlertaServico(@PathParam("idServico") int idServico) {
 		return daoAlerta.verificarAlertaServico(idServico);
 	}
 }

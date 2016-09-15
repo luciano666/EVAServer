@@ -2,21 +2,21 @@ package br.gov.dataprev.eva.server.to;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="AlertaTO")
+@XmlRootElement(name="MotivoTO")
 public class MotivoTO {
 
-	private int idAlerta;
+	private int idMotivo;
 	private String descricao;
 	private int idServico;
-	private int idMotivo;
-	private int nivel;
+	private int idCliente;
+	private int idResposta;
 	
-	public int getIdAlerta() {
-		return idAlerta;
+	public int getIdMotivo() {
+		return idMotivo;
 	}
 	
-	public void setIdAlerta(int idAlerta) {
-		this.idAlerta = idAlerta;
+	public void setIdMotivo(int idMotivo) {
+		this.idMotivo = idMotivo;
 	}
 	
 	public String getDescricao() {
@@ -35,20 +35,20 @@ public class MotivoTO {
 		this.idServico = idServico;
 	}
 	
-	public int getIdMotivo() {
-		return idMotivo;
+	public int getIdCliente() {
+		return idCliente;
 	}
 	
-	public void setIdMotivo(int idMotivo) {
-		this.idMotivo = idMotivo;
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
 	
-	public int getNivel() {
-		return nivel;
+	public int getIdResposta() {
+		return idResposta;
 	}
 	
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
+	public void setIdResposta(int idResposta) {
+		this.idResposta = idResposta;
 	}
 	
 }

@@ -15,8 +15,6 @@ import javax.ws.rs.Produces;
 import br.gov.dataprev.eva.server.entity.TipoRetorno;
 import br.gov.dataprev.eva.server.util.PrologAdapter;
 import br.gov.dataprev.eva.server.webservice.QueryService;
-import jpl.JPL;
-import jpl.Query;
 
 public class QueryServiceImpl implements QueryService {
 

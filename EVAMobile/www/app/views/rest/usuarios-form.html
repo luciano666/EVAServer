@@ -1,0 +1,53 @@
+<h3>Usuários
+ <small>Cadastro de usuários do sistema</small>
+</h3>
+<div ng-controller="UsuariosFormController">
+ <!-- START row-->
+ <div class="row">
+  <form method="post" role="form" ng-submit="save()" validate-form="" novalidate="" class="mb-lg">
+   <div class="col-lg-12">
+
+    <div class="panel panel-50 panel-default">
+     <div class="panel-heading">
+      <div class="panel-title">Usuário</div>
+    </div>
+    <div class="panel-body">
+      <div class="form-group" style="display: none;">
+       <label class="control-label">Id</label>
+       <input type="text" ng-model="form.id" name="id" class="form-control" />  
+     </div>          
+     <div class="form-group" style="width: 100%;">
+       <label class="control-label">Usuário<span class="error">*</span></label>
+       <input type="text" ng-model="form.usuario" name="usuario" ng-required="true" class="form-control" value="{{form.usuario}}" ng-value="{{form.usuario}}" />
+     </div>
+     
+ <div class="form-group">
+   <label class="control-label">Senha de acesso <span class="error" ng-show="form.id==undefined">*</span></label>
+   <input type="password" ng-model="form.senha" name="senha" id="senha" ng-required="form.id==undefined" data-parsley-minlength="4" class="form-control" value="{{form.senha}}" ng-value="{{form.senha}}" />
+ </div>
+ <div class="form-group">
+   <label class="control-label">Repita sua senha de acesso <span class="error" ng-show="form.id==undefined">*</span></label>
+   <input type="password" ng-model="form.senha2" name="senha2" ng-required="form.id==undefined" data-parsley-equalto='#senha' class="form-control" value="{{form.senha2}}" ng-value="{{form.senha2}}" />
+ </div>
+ <div class="form-group">
+   <label class="control-label">Tipo <span class="error" ng-show="form.id==undefined">*</span></label>
+   <input type="text" ng-model="form.tipo" name="tipo" ng-required="true" class="form-control" value="{{form.tipo}}" ng-value="{{form.tipo}}" />
+ </div>
+ <!--div class="form-group" style="width: 50%; height: 80px;"> </div-->
+ <div><span class="error">*</span> Campos obrigatórios</div>
+</div>
+</div>
+<div class="panel-footer">
+ <div class="clearfix">
+  <div class="pull-right">
+   <button type="submit" class="btn btn-lg btn-success">Salvar</button>
+   <a href="#/app/usuarios" class="btn btn-primary">Retornar</a>
+ </div>
+</div>
+</div>
+</div>
+<!-- END panel-->
+</form>
+</div>
+<!-- END row-->
+</div>

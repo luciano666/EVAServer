@@ -80,7 +80,7 @@ public class QueryServiceImpl implements QueryService {
 				if (servicoTO != null) {
 					AlertaTO alerta = alertaDAO.verificarAlertaServico(servicoTO.getIdServico());
 					if (alerta == null) {
-						retVal = "Não encontrei em meus registros nenhum alerta. <br> Você selecionou o serviço "+servico+", qual o motivo deste atendimento? <br>";
+						retVal = "Não encontrei em meus registros nenhum alerta. Você selecionou o serviço "+servico+", qual o motivo deste atendimento?";
 						List<MotivoTO> motivos = motivoDAO.obterMotivosServico(servicoTO.getIdServico());
 						for (MotivoTO motivo : motivos) {
 							retVal+=motivo.getDescricao()+", ";

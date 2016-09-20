@@ -1,0 +1,17 @@
+[
+  {
+    "text": "Principal",
+    "sref": "app.principal",
+    "icon": "icon-speedometer"
+  },
+  {
+    "text": "Serviços",
+    "sref": "app.servicos",
+    "icon": "fa fa-cubes"
+  },
+  {
+    "text": "Histórico",
+    "sref": "app.historico",
+    "icon": "fa fa-comments"
+  }
+]

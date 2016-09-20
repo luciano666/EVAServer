@@ -1,0 +1,24 @@
+<nav role="navigation" class="navbar topnavbar">
+   <div class="navbar-header">
+      <a href="#/" class="navbar-brand">
+         <div class="brand-logo" style="">
+            <h4 style="color: #ffffff;">Espaço Virtual de Atendimento</h4>
+         </div>
+         <div class="brand-logo-collapsed">
+            <img src="app/img/logo-single.png" alt="App Logo" class="img-responsive" />
+         </div>
+      </a>
+   </div>
+   <div class="nav-wrapper">
+      <ul class="nav navbar-nav">
+         <li>
+            <a href="#" ng-click="app.layout.isCollapsed = !app.layout.isCollapsed" class="hidden-xs">
+               <em class="fa fa-2x fa-navicon"></em>
+            </a>
+            <a href="#" toggle-state="aside-toggled" no-persist="no-persist" class="visible-xs sidebar-toggle">
+               <em class="fa fa-2x fa-navicon"></em>
+            </a>
+         </li>
+      </ul>
+   </div>
+</nav>

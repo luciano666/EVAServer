@@ -1,0 +1,26 @@
+<div class="row" style="padding: 20px; margin-top: 70px;">
+
+<center>
+  <img src="app/img/logo.png?x=5" style="width: 190px">
+  <h1 style="font-size: 48px; margin-top: 10px; margin-bottom: 20px; color: #000099">EVA</h1>
+    <h2 style="margin: 0px 0px 50px; font-family: helvetica neue; color: #000099;">Espaço Virtual de Atendimento Público</h2>
+</center>
+
+<center>
+  <button class="shake btn btn-pill-left btn-pill-right btn-danger" style="width: 100px; height: 100px; margin-right: 10px; " type="button" ng-click="recognizeSpeech()">
+                 <em class="fa fa-microphone fa-5x"></em>
+  </button>
+  <a class="btn btn-primary bounceIn" style="width: 90px; height: 90px; padding: 0px; margin-left: 10px; z-index: 2; border-radius: 15px;" type="button" href="#/app/atendimento">
+                 <em style="font-size: 7em" class="fa fa-pencil-square fa-5x"></em>
+  </a>
+
+</center>
+<script>
+setInterval(
+   function(){
+      $('.shake').show().removeClass('bounceIn'); 
+      $('.shake').show().addClass('bounceIn');
+   }, 3000
+   );
+</script>
+</div>

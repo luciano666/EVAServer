@@ -8,7 +8,7 @@ public class PrologAdapter {
 	private static PrologAdapter instance;
 
 	private PrologAdapter() {
-		String path = "consult('/home/alexandre/workspace_hackaton_2016/workspace_EVAServer_Git/EVAIa/eva.pl')";
+		String path = "consult('/home/luciano/eva.pl')";
 
 		Query q = new Query(path);
 		System.out.println(q.hasSolution());
